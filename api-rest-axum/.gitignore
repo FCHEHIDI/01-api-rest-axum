@@ -1,6 +1,7 @@
 /target
 .env
 *.db
-/target
-.env
-*.db
+
+# Logs et artéfacts de test temporaires
+*.txt
+*.ps1
