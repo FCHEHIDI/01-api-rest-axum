@@ -1,4 +1,3 @@
-```markdown
 # RustWebDev Suite
 
 Collection de projets **Rust HTTP/Web** à construire avec Claude Sonnet 4.6.  
@@ -48,4 +47,3 @@ Ces projets partagent avec ALVR les mêmes fondamentaux Rust async :
 
 ---
 *Généré le 03/03/2026 — FCHEHIDI*
-```

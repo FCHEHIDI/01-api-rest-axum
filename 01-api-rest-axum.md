@@ -1,4 +1,3 @@
-````markdown
 # Projet 01 — API REST production-ready avec Axum
 
 ## Contexte
@@ -234,4 +233,3 @@ where
 - utoipa (OpenAPI) : https://docs.rs/utoipa
 - validator : https://docs.rs/validator
 - Patterns Axum pro : https://github.com/tokio-rs/axum/tree/main/examples
-````
