@@ -3,6 +3,9 @@
 
 mod config;
 mod db;
+mod error;
+mod models;
+mod dto;
 
 use anyhow::Result;
 

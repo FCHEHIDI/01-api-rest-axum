@@ -2,7 +2,7 @@
 // Règle fondamentale : les types Rust doivent correspondre aux types SQL.
 // SQLx vérifie cette correspondance à la compilation via query_as!
 
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use sqlx::FromRow;
 use time::OffsetDateTime;
 use uuid::Uuid;
