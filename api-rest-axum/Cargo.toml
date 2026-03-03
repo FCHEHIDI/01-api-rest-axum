@@ -1,0 +1,58 @@
+[package]
+name = "api-rest-axum"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# ── Framework HTTP ──────────────────────────────────────────────
+axum = { version = "0.7", features = ["macros"] }
+# "macros" active #[debug_handler] pour de meilleurs messages d'erreur
+
+tower = "0.5"
+tower-http = { version = "0.6", features = ["trace", "cors"] }
+# tower-http : middleware composables — on utilise TraceLayer + CorsLayer
+
+# ── Runtime async ────────────────────────────────────────────────
+tokio = { version = "1", features = ["full"] }
+# "full" : runtime multi-thread, timers, fs, signal — standard pour prod
+
+# ── Base de données ──────────────────────────────────────────────
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "uuid", "time", "macros"] }
+# runtime-tokio-rustls : async natif Tokio + TLS
+# uuid   : type Uuid dans les query_as!
+# time   : timestamps avec time::OffsetDateTime
+# macros : query!, query_as! — type-checked at compile time
+
+# ── Sérialisation ────────────────────────────────────────────────
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# ── Validation ───────────────────────────────────────────────────
+validator = { version = "0.20", features = ["derive"] }
+# Le trait Validate + #[validate(...)] sur les structs de requête
+
+# ── Types utiles ─────────────────────────────────────────────────
+uuid = { version = "1", features = ["v4", "serde"] }
+# v4 : génération UUID aléatoire ; serde : Serialize/Deserialize automatique
+time = { version = "0.3", features = ["serde"] }
+
+# ── Gestion d'erreurs ────────────────────────────────────────────
+thiserror = "2"   # dériver l'enum AppError avec #[error("...")]
+anyhow = "1"      # propagation générique dans main et tests
+
+# ── Configuration ────────────────────────────────────────────────
+dotenvy = "0.15"  # charge .env en développement (pas en prod)
+
+# ── Observabilité ────────────────────────────────────────────────
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+# env-filter : niveau de log configurable via RUST_LOG=debug
+
+# ── Documentation OpenAPI ────────────────────────────────────────
+utoipa = { version = "4", features = ["axum_extras", "uuid"] }
+utoipa-swagger-ui = { version = "7", features = ["axum"] }
+
+[dev-dependencies]
+# Tests d'intégration uniquement
+axum-test = "16"        # client HTTP in-process pour tester les handlers
+tokio-test = "0.4"
