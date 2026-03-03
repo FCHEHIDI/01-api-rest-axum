@@ -4,12 +4,13 @@
 // 2. On peut formater les types différemment (OffsetDateTime → string ISO 8601)
 
 use serde::Serialize;
+use utoipa::ToSchema;
 use uuid::Uuid;
 
 /// Représentation d'un produit dans les réponses HTTP.
 /// Différence avec Product (modèle DB) : created_at/updated_at en String
 /// pour un format ISO 8601 lisible côté client.
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, ToSchema)]
 pub struct ProductResponse {
     pub id: Uuid,
     pub name: String,
@@ -22,8 +23,8 @@ pub struct ProductResponse {
 
 /// Réponse paginée générique — fonctionne pour n'importe quel type T.
 /// Le générique <T> évite de réécrire cette struct pour chaque ressource.
-#[derive(Debug, Serialize)]
-pub struct PageResponse<T> {
+#[derive(Debug, Serialize, ToSchema)]
+pub struct PageResponse<T: for<'a> ToSchema<'a>> {
     pub data: Vec<T>,
     /// None = on est sur la dernière page
     pub next_cursor: Option<Uuid>,

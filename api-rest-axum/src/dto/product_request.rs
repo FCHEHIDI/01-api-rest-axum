@@ -3,12 +3,13 @@
 // Elles valident et contraignent les inputs AVANT qu'ils atteignent le service.
 
 use serde::Deserialize;
+use utoipa::ToSchema;
 use validator::Validate;
 
 /// Payload pour POST /products
 /// Deserialize : JSON → struct (entrée réseau)
 /// Validate : contraintes métier vérifiées par ValidatedJson<T>
-#[derive(Debug, Deserialize, Validate)]
+#[derive(Debug, Deserialize, Validate, ToSchema)]
 pub struct CreateProductRequest {
     /// length(min=1) : rejette les strings vides "" 
     /// length(max=200) : cohérent avec CHECK SQL dans la migration
@@ -33,7 +34,7 @@ pub struct CreateProductRequest {
 /// Payload pour PUT /products/:id
 /// Tous les champs sont Option : on ne met à jour que ce qui est fourni.
 /// C'est le pattern "partial update" — plus flexible qu'un remplacement total.
-#[derive(Debug, Deserialize, Validate)]
+#[derive(Debug, Deserialize, Validate, ToSchema)]
 pub struct UpdateProductRequest {
     #[validate(length(min = 1, max = 200, message = "Name must be 1-200 characters"))]
     pub name: Option<String>,

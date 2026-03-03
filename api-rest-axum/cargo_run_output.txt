@@ -1,0 +1,7 @@
+[2m2026-03-03T18:19:42.999686Z[0m [32m INFO[0m [2mapi_rest_axum[0m[2m:[0m Config loaded [3mport[0m[2m=[0m3000 [3menv[0m[2m=[0mdevelopment [3mversion[0m[2m=[0m0.1.0
+[2m2026-03-03T18:19:43.099514Z[0m [32m INFO[0m [2mapi_rest_axum[0m[2m:[0m Database pool created
+[2m2026-03-03T18:19:43.114678Z[0m [32m INFO[0m [2msqlx::postgres::notice[0m[2m:[0m relation "_sqlx_migrations" already exists, skipping
+[2m2026-03-03T18:19:43.125830Z[0m [32m INFO[0m [2mapi_rest_axum::db[0m[2m:[0m Database migrations applied successfully
+[2m2026-03-03T18:19:43.127188Z[0m [32m INFO[0m [2mapi_rest_axum[0m[2m:[0m Migrations applied
+[2m2026-03-03T18:19:43.130184Z[0m [32m INFO[0m [2mapi_rest_axum[0m[2m:[0m Server listening on http://localhost:3000
+[2m2026-03-03T18:19:43.130522Z[0m [32m INFO[0m [2mapi_rest_axum[0m[2m:[0m Swagger UI available on http://localhost:3000/docs

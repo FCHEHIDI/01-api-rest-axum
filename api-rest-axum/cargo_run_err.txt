@@ -1,0 +1,25 @@
+warning: method `is_test` is never used
+  --> src\config.rs:54:12
+   |
+26 | impl Config {
+   | ----------- method in this implementation
+...
+54 |     pub fn is_test(&self) -> bool {
+   |            ^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `Conflict` is never constructed
+  --> src\error.rs:27:5
+   |
+14 | pub enum AppError {
+   |          -------- variant in this enum
+...
+27 |     Conflict(String),
+   |     ^^^^^^^^
+   |
+   = note: `AppError` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `api-rest-axum` (bin "api-rest-axum") generated 2 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.77s
+     Running `target\debug\api-rest-axum.exe`

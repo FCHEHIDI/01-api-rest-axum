@@ -34,7 +34,7 @@ pub fn router() -> Router<AppState> {
     Router::new()
         .route("/products", get(list_products).post(create_product))
         .route(
-            "/products/{id}",
+            "/products/:id",
             get(get_product).put(update_product).delete(delete_product),
         )
 }
@@ -42,7 +42,21 @@ pub fn router() -> Router<AppState> {
 /// GET /products?after=<cursor>&limit=<n>
 /// State<AppState> : Axum injecte l'état partagé automatiquement
 /// Query<T> : désérialise les query params
-async fn list_products(
+#[utoipa::path(
+    get,
+    path = "/products",
+    params(
+        ("after" = Option<Uuid>, Query, description = "Cursor UUID"),
+        ("limit" = Option<u32>, Query, description = "Max results (default 20)")
+    ),
+    responses(
+        (status = 200, body = PageResponse<ProductResponse>),
+        (status = 500, description = "Internal error")
+    ),
+    tag = "products"
+)]
+
+pub async fn list_products(
     State(state): State<AppState>,
     Query(params): Query<PaginationParams>,
 ) -> Result<impl IntoResponse, AppError> {
@@ -54,7 +68,13 @@ async fn list_products(
 /// GET /products/:id
 /// Path<Uuid> : Axum parse et valide le segment UUID automatiquement
 /// Si l'UUID est malformé → 400 avant même d'atteindre le handler
-async fn get_product(
+
+#[utoipa::path(get, path = "/products/{id}",
+    responses((status = 200, body = ProductResponse), (status = 404, description = "Not found")),
+    tag = "products"
+)]
+
+pub async fn get_product(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
 ) -> Result<impl IntoResponse, AppError> {
@@ -65,7 +85,12 @@ async fn get_product(
 /// POST /products
 /// ValidatedJson<T> : notre extractor custom — désérialise + valide en une passe
 /// StatusCode::CREATED (201) : convention REST pour une création réussie
-async fn create_product(
+#[utoipa::path(post, path = "/products", request_body = CreateProductRequest,
+    responses((status = 201, body = ProductResponse), (status = 422, description = "Validation error")),
+    tag = "products"
+)]
+
+pub async fn create_product(
     State(state): State<AppState>,
     ValidatedJson(req): ValidatedJson<CreateProductRequest>,
 ) -> Result<impl IntoResponse, AppError> {
@@ -74,7 +99,12 @@ async fn create_product(
 }
 
 /// PUT /products/:id
-async fn update_product(
+#[utoipa::path(put, path = "/products/{id}", request_body = UpdateProductRequest,
+    responses((status = 200, body = ProductResponse), (status = 404, description = "Not found")),
+    tag = "products"
+)]
+
+pub async fn update_product(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
     ValidatedJson(req): ValidatedJson<UpdateProductRequest>,
@@ -85,7 +115,12 @@ async fn update_product(
 
 /// DELETE /products/:id
 /// StatusCode::NO_CONTENT (204) : convention REST pour suppression réussie sans body
-async fn delete_product(
+#[utoipa::path(delete, path = "/products/{id}",
+    responses((status = 204, description = "Deleted"), (status = 404, description = "Not found")),
+    tag = "products"
+)]
+
+pub async fn delete_product(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
 ) -> Result<impl IntoResponse, AppError> {

@@ -1,0 +1,35 @@
+
+status db version
+------ -- -------
+ok     ok 0.1.0
+
+
+id          : d0265a4b-ec46-4e71-b3ab-e7464cf0f7fe
+name        : Laptop Pro
+description : High-end laptop
+price       : 1299.99
+stock       : 10
+created_at  : 2026-03-03 18:08:38.082649 +00:00:00
+updated_at  : 2026-03-03 18:08:38.082649 +00:00:00
+
+
+=== GET /products ===
+
+data
+----                                                                            
+{@{id=d0265a4b-ec46-4e71-b3ab-e7464cf0f7fe; name=Laptop Pro; description=High-e…
+
+
+=== GET /products/d0265a4b-ec46-4e71-b3ab-e7464cf0f7fe ===
+
+=== PUT /products/d0265a4b-ec46-4e71-b3ab-e7464cf0f7fe ===
+
+=== GET 404 ===
+
+=== POST 422 validation error ===
+
+=== DELETE /products/d0265a4b-ec46-4e71-b3ab-e7464cf0f7fe ===
+
+Delete status: False
+
+=== GET after DELETE (should 404) ===
