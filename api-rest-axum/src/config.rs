@@ -54,4 +54,17 @@ impl Config {
     pub fn is_test(&self) -> bool {
         self.app_env == "test"
     }
+
+    /// Config minimale pour les tests d'intégration.
+    /// Le pool est fourni par #[sqlx::test] — pas besoin d'une vraie DATABASE_URL.
+    /// APP_PORT et APP_ENV sont des valeurs factices ; ils ne sont pas utilisés
+    /// par les tests (le serveur TestServer écoute sur un port aléatoire in-process).
+    pub fn for_test() -> Self {
+        Config {
+            database_url: std::env::var("DATABASE_URL").unwrap_or_default(),
+            port: 3000,
+            app_env: "test".to_string(),
+            version: env!("CARGO_PKG_VERSION").to_string(),
+        }
+    }
 }
