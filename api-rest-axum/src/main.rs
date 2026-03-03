@@ -1,11 +1,15 @@
 // main.rs — Point d'entrée minimal pour valider le CP2
 // On va progressivement enrichir ce fichier jusqu'au CP10.
 
+mod app;
 mod config;
 mod db;
+mod dto;
 mod error;
 mod models;
-mod dto;
+mod repository;
+mod routes;
+mod services;
 
 use anyhow::Result;
 

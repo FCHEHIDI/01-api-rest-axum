@@ -105,8 +105,8 @@ pub async fn update(
                stock       = COALESCE($4, stock)
            WHERE id = $5
            RETURNING id, name, description, price, stock, created_at, updated_at"#,
-        req.name as Option<String>,
-        req.description as Option<String>,
+        req.name.clone() as Option<String>,
+        req.description.clone() as Option<String>,
         req.price as Option<f64>,
         req.stock as Option<i32>,
         id,

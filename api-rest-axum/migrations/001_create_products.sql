@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS products (
     id          UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
     name        TEXT        NOT NULL CHECK (char_length(name) BETWEEN 1 AND 200),
     description TEXT,
-    price       NUMERIC(10, 2) NOT NULL CHECK (price > 0),
+    price       FLOAT8      NOT NULL CHECK (price > 0),
     stock       INTEGER     NOT NULL DEFAULT 0 CHECK (stock >= 0),
     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
